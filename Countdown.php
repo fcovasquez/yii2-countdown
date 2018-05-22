@@ -1,8 +1,8 @@
 <?php
 
-namespace russ666\widgets;
+namespace fcovasquez\widgets;
 
-use russ666\widgets\CountdownAsset;
+use fcovasquez\widgets\CountdownAsset;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
@@ -30,6 +30,11 @@ class Countdown extends Widget
      */
     public $options = [];
 
+    /**
+     * @var array
+     */
+    public $config = [];
+    
     /**
      * @var string
      */
@@ -68,8 +73,13 @@ class Countdown extends Widget
      */
     protected function renderScript()
     {
+        $config = '{';
+        foreach ($this->config as $key => $value) {
+            $config .= $key .': ' . $value . ',';
+        }
+        $config .= '}';
         $script = 'jQuery("#' . $this->id . '").countdown("' . $this->datetime
-            . '", function(e) {$(this).html(e.strftime("' . $this->format . '"))})';
+            . '", ' . $config . ', function(e) {$(this).html(e.strftime("' . $this->format . '"))})';
 
         foreach ($this->events as $event => $callback)
             $script .= '.on("' . $event . '.countdown", ' . $callback . ')';
