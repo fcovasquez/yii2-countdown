@@ -1,4 +1,4 @@
-This is version is a modification of russ666/yii2-countdown.
+This is a modified version of russ666/yii2-countdown.
 
 Includes additional config parameters for widget initialization.
 
